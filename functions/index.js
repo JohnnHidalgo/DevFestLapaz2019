@@ -1,9 +1,11 @@
 'use strict';
-
-const { dialogflow } = require('actions-on-google');
-
+const {
+    dialogflow,
+    BasicCard,
+    Permission,
+    Suggestions,
+} = require('actions-on-google');
 const functions = require('firebase-functions');
-
 const app = dialogflow({ debug: true });
 
 const speakerMap = {
