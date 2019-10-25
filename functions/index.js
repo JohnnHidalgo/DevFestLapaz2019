@@ -1,4 +1,5 @@
 'use strict';
+
 const {
     dialogflow,
     BasicCard,
@@ -8,9 +9,7 @@ const {
 const functions = require('firebase-functions');
 const app = dialogflow({ debug: true });
 
-const speakerMap = {
-
-
+const cardSpeakers = {
     'Pablo Perez': {
         title: 'Pablo Perez',
         image: {
@@ -19,8 +18,6 @@ const speakerMap = {
         },
         display: 'WHITE',
     },
-
-
     'Argel Bejarano': {
         title: 'Argel Bejarano',
         image: {
@@ -29,8 +26,6 @@ const speakerMap = {
         },
         display: 'WHITE',
     },
-
-
     'Victor Aguilar': {
         title: 'Victor Aguilar',
         image: {
@@ -39,8 +34,6 @@ const speakerMap = {
         },
         display: 'WHITE',
     },
-
-
     'Noe Bautista': {
         title: 'Noe Bautista',
         image: {
@@ -49,8 +42,6 @@ const speakerMap = {
         },
         display: 'WHITE',
     },
-
-
     'Adriana Moya': {
         title: 'Adriana Moya',
         image: {
@@ -59,9 +50,6 @@ const speakerMap = {
         },
         display: 'WHITE',
     },
-
-
-
     'Leonidas Esteban': {
         title: 'Leonidas Esteban',
         image: {
@@ -70,10 +58,6 @@ const speakerMap = {
         },
         display: 'WHITE',
     },
-
-
-
-
     'Diego Velasquez': {
         title: 'Diego Velasquez',
         image: {
@@ -82,10 +66,6 @@ const speakerMap = {
         },
         display: 'WHITE',
     },
-
-
-
-
     'Fernanda Ramirez': {
         title: 'Fernanda Ramirez',
         image: {
@@ -94,9 +74,6 @@ const speakerMap = {
         },
         display: 'WHITE',
     },
-
-
-
     'Luis Avilés': {
         title: 'Luis Avilés',
         image: {
@@ -105,8 +82,6 @@ const speakerMap = {
         },
         display: 'WHITE',
     },
-
-
     'Kenji Kawada': {
         title: 'Kenji Kawada',
         image: {
@@ -115,28 +90,62 @@ const speakerMap = {
         },
         display: 'WHITE',
     },
-
-
-
 };
 
-var elem = [
-    ['Pablo Perez', 'Argentina'],
-    ['Argel Bejarano', 'Mexico'],
-    ['Victor Aguilar', 'Bolivia'],
-    ['Noe Bautista', 'Republica Dominicana'],
-    ['Adriana Moya', 'Colombia'],
-    ['Leonidas Esteban', 'Mexico'],
-    ['Diego Velasquez', 'Peru'],
-    ['Fernanda Ramirez', 'Mexico'],
-    ['Luis Avilés', 'Bolivia'],
-    ['Kenji Kawada', 'Bolivia'],
+var elemSpeakers = [
+    ['Pablo Perez', 'Argentina', 'Tensorflow'],
+    ['Argel Bejarano', 'Mexico', 'Flutter'],
+    ['Victor Aguilar', 'Bolivia', 'Backend'],
+    ['Noe Branagan', 'Republica Dominicana', 'Kotlin'],
+    ['Adriana Moya', 'Colombia', 'GCP'],
+    ['Leonidas Esteban', 'Mexico', 'Web'],
+    ['Diego Velasquez', 'Peru', 'Flutter'],
+    ['Fernanda Ochoa', 'Mexico', 'AOG'],
+    ['Luis Avilés', 'Bolivia', 'Angular'],
+    ['Kenji Kawaida', 'Bolivia', 'Android'],
 ];
 
-
-app.intent('favorite color', (conv, { color }) => {
-    const luckyNumber = color.length;
-    conv.close('Your lucky number is ' + luckyNumber);
+var paisSpeakers = [
+    ['Argentina'],
+    ['Mexico'],
+    ['Bolivia'],
+    ['Republica Dominicana'],
+    ['Colombia'],
+    ['Peru'],
+];
+var index;
+app.intent('Default Welcome Intent', (conv) => {
+    conv.ask(new Permission({
+        context: 'Hola, para conocerte mejor.',
+        permissions: 'NAME',
+    }));
 });
+
+app.intent('actions_intent_PERMISSION', (conv, params, permissionGranted) => {
+    if (!permissionGranted) {
+        conv.ask(`OK, no te preocupes. Vamos a realizarte algunas preguntas \n`);
+        conv.ask(`Seleciona una categoría`);
+        conv.ask(new Suggestions('Speakers', 'Tech'));
+    } else {
+        conv.data.userName = conv.user.name.display;
+        conv.ask(`Gracias, ${conv.data.userName}. Vamos a realizarte algunas preguntas `);
+        conv.ask(`Seleciona una categoría`);
+        conv.ask(new Suggestions('Speakers', 'Tech'));
+    }
+});
+
+app.intent('SelectCategory', (conv, { category }) => {
+    if (category == 'Speakers') {
+        index = Math.floor(Math.random() * elemSpeakers.length);
+        var selectSpeaker = elemSpeakers[index][0];
+        conv.ask(`${category}! Comencemos!, estás listo?`, new BasicCard(cardSpeakers[selectSpeaker]));
+        conv.ask(`De que país es  ${selectSpeaker}?`);
+        conv.ask(new Suggestions(paisSpeakers[0], paisSpeakers[1], paisSpeakers[2], paisSpeakers[3], paisSpeakers[4], paisSpeakers[5]));
+    } else {
+        conv.close(`${category}! No tenemos el quiz aún`);
+    }
+});
+
+
 
 exports.dialogflowFirebaseFulfillment = functions.https.onRequest(app);
