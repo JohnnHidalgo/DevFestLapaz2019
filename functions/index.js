@@ -105,47 +105,11 @@ var elemSpeakers = [
     ['Kenji Kawaida', 'Bolivia', 'Android'],
 ];
 
-var paisSpeakers = [
-    ['Argentina'],
-    ['Mexico'],
-    ['Bolivia'],
-    ['Republica Dominicana'],
-    ['Colombia'],
-    ['Peru'],
-];
-var index;
 app.intent('Default Welcome Intent', (conv) => {
     conv.ask(new Permission({
         context: 'Hola, para conocerte mejor.',
         permissions: 'NAME',
     }));
 });
-
-app.intent('actions_intent_PERMISSION', (conv, params, permissionGranted) => {
-    if (!permissionGranted) {
-        conv.ask(`OK, no te preocupes. Vamos a realizarte algunas preguntas \n`);
-        conv.ask(`Seleciona una categoría`);
-        conv.ask(new Suggestions('Speakers', 'Tech'));
-    } else {
-        conv.data.userName = conv.user.name.display;
-        conv.ask(`Gracias, ${conv.data.userName}. Vamos a realizarte algunas preguntas `);
-        conv.ask(`Seleciona una categoría`);
-        conv.ask(new Suggestions('Speakers', 'Tech'));
-    }
-});
-
-app.intent('SelectCategory', (conv, { category }) => {
-    if (category == 'Speakers') {
-        index = Math.floor(Math.random() * elemSpeakers.length);
-        var selectSpeaker = elemSpeakers[index][0];
-        conv.ask(`${category}! Comencemos!, estás listo?`, new BasicCard(cardSpeakers[selectSpeaker]));
-        conv.ask(`De que país es  ${selectSpeaker}?`);
-        conv.ask(new Suggestions(paisSpeakers[0], paisSpeakers[1], paisSpeakers[2], paisSpeakers[3], paisSpeakers[4], paisSpeakers[5]));
-    } else {
-        conv.close(`${category}! No tenemos el quiz aún`);
-    }
-});
-
-
 
 exports.dialogflowFirebaseFulfillment = functions.https.onRequest(app);
