@@ -114,6 +114,7 @@ var paisSpeakers = [
     ['Peru'],
 ];
 
+var index;
 app.intent('Default Welcome Intent', (conv) => {
     conv.ask(new Permission({
         context: 'Hola, para conocerte mejor.',
