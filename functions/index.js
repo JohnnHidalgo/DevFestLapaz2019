@@ -105,6 +105,15 @@ var elemSpeakers = [
     ['Kenji Kawaida', 'Bolivia', 'Android'],
 ];
 
+var paisSpeakers = [
+    ['Argentina'],
+    ['Mexico'],
+    ['Bolivia'],
+    ['Republica Dominicana'],
+    ['Colombia'],
+    ['Peru'],
+];
+
 app.intent('Default Welcome Intent', (conv) => {
     conv.ask(new Permission({
         context: 'Hola, para conocerte mejor.',
