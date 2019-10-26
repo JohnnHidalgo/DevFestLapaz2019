@@ -98,7 +98,7 @@ var elemSpeakers = [
     ['Victor Aguilar', 'Bolivia', 'Backend'],
     ['Noe Branagan', 'Republica Dominicana', 'Kotlin'],
     ['Adriana Moya', 'Colombia', 'GCP'],
-    ['Leonidas Esteban', 'Mexico', 'Web'],
+    ['Leonidas Esteban', 'Mexico', 'Angular'],
     ['Diego Velasquez', 'Peru', 'Flutter'],
     ['Fernanda Ochoa', 'Mexico', 'AOG'],
     ['Luis Avilés', 'Bolivia', 'Angular'],
@@ -114,8 +114,25 @@ var paisSpeakers = [
     ['Peru'],
 ];
 
+var techSpeakers = [
+    ['Tensorflow'],
+    ['Flutter'],
+    ['Backend'],
+    ['Kotlin'],
+    ['GCP'],
+    ['AOG'],
+    ['Angular'],
+    ['Android'],
+];
+
 var index;
+var count = 0;
+var score = 0;
+
 app.intent('Default Welcome Intent', (conv) => {
+    index = 0;
+    count = 0;
+    score = 0;
     conv.ask(new Permission({
         context: 'Hola, para conocerte mejor.',
         permissions: 'NAME',
@@ -142,8 +159,38 @@ app.intent('SelectCategory', (conv, { category }) => {
         conv.ask(`${category}! Comencemos!, estás listo?`, new BasicCard(cardSpeakers[selectSpeaker]));
         conv.ask(`De que país es  ${selectSpeaker}?`);
         conv.ask(new Suggestions(paisSpeakers[0], paisSpeakers[1], paisSpeakers[2], paisSpeakers[3], paisSpeakers[4], paisSpeakers[5]));
+        count++;
     } else {
         conv.close(`${category}! No tenemos el quiz aún`);
+    }
+});
+
+app.intent('askForSpeakerCountry', (conv, { country }) => {
+    if (country == elemSpeakers[index][1]) {
+        conv.ask(`Correcto`);
+        score++;
+    } else {
+        conv.ask(`incorrecto`);
+    }
+    if (count < 3) {
+        index = 0;
+        index = Math.floor(Math.random() * elemSpeakers.length);
+        var selectSpeakerCountry = elemSpeakers[index][0];
+        conv.ask(`De que país es  ${selectSpeakerCountry}?`, new BasicCard(cardSpeakers[selectSpeakerCountry]));
+        conv.ask(new Suggestions(paisSpeakers[0], paisSpeakers[1], paisSpeakers[2], paisSpeakers[3], paisSpeakers[4], paisSpeakers[5]));
+        count++;
+    } else {
+        if (score == 3) {
+            conv.close(`Ganaste !`);
+            index = 0;
+            count = 0;
+            score = 0;
+        } else {
+            conv.close(`Intenta denuevo!`);
+            index = 0;
+            count = 0;
+            score = 0;
+        }
     }
 });
 
