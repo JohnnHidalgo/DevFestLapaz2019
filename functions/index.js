@@ -93,16 +93,16 @@ const cardSpeakers = {
 };
 
 var elemSpeakers = [
-    ['Pablo Perez', 'Argentina', 'Tensorflow'],
-    ['Argel Bejarano', 'Mexico', 'Flutter'],
-    ['Victor Aguilar', 'Bolivia', 'Backend'],
-    ['Noe Branagan', 'Republica Dominicana', 'Kotlin'],
-    ['Adriana Moya', 'Colombia', 'GCP'],
-    ['Leonidas Esteban', 'Mexico', 'Angular'],
-    ['Diego Velasquez', 'Peru', 'Flutter'],
-    ['Fernanda Ochoa', 'Mexico', 'AOG'],
-    ['Luis Avilés', 'Bolivia', 'Angular'],
-    ['Kenji Kawaida', 'Bolivia', 'Android'],
+    ['Pablo Perez', 'Argentina'],
+    ['Argel Bejarano', 'Mexico'],
+    ['Victor Aguilar', 'Bolivia'],
+    ['Noe Branagan', 'Republica Dominicana'],
+    ['Adriana Moya', 'Colombia'],
+    ['Leonidas Esteban', 'Mexico'],
+    ['Diego Velasquez', 'Peru'],
+    ['Fernanda Ochoa', 'Mexico'],
+    ['Luis Avilés', 'Bolivia'],
+    ['Kenji Kawaida', 'Bolivia'],
 ];
 
 var paisSpeakers = [
