@@ -125,6 +125,18 @@ var techSpeakers = [
     ['Android'],
 ];
 
+var quTech = [
+    ['Cómo se llama la mascota de Flutter?', 'Dant', 'Dash', 'Dani', 'Dolt', 'Dash'],
+    ['El actual CEO de Google es ', 'Mukesh Ambani', 'Sergey Brin', 'Larry Page', 'Sundar Pichai', 'Sundar Pichai'],
+    ['Tensorflow es:', 'Framework de IA', 'Aplicación de IA', 'Motor de IA', 'Librería de IA', 'Librería de IA'],
+    ['Nombre de la Primera version de Android?', 'Banana Pie', 'Apple Cupcake', 'Apple Pie', 'Cupcake', 'Apple Pie'],
+    ['En que año salió  la version de Android Froyo?', '2011', '2010', '2009', '2012', '2010'],
+    ['A partir de que versión de Angular se puede desarrollar PWA?', 'Angular5', 'Angular6', 'Angular4', 'Angular3', 'Angular6'],
+    ['Con cuál de estas plataformas no se vinculan los agentes de Dialogflow', 'Messenger', 'Slack', 'Whatsapp', 'Skype', 'Whatsapp'],
+    ['Que año Anunció Google a Kotlin como lenguaje para desarrollar aplicaciones Android', '2016', '2018', '2017', '2015', '2017'],
+    ['En qué evento Google anunció Kotlin', 'Google I/O 2017', 'Google I/O 2018', 'Google I/O 2016', 'Google I/O 2015', 'Google I/O 2017'],
+];
+
 var index;
 var count = 0;
 var score = 0;
