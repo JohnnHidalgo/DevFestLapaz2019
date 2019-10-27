@@ -165,15 +165,20 @@ app.intent('actions_intent_PERMISSION', (conv, params, permissionGranted) => {
 });
 
 app.intent('SelectCategory', (conv, { category }) => {
+    conv.ask(`${category}! Comencemos!, estás listo?`);
     if (category == 'Speakers') {
         index = Math.floor(Math.random() * elemSpeakers.length);
         var selectSpeaker = elemSpeakers[index][0];
-        conv.ask(`${category}! Comencemos!, estás listo?`, new BasicCard(cardSpeakers[selectSpeaker]));
         conv.ask(`De que país es  ${selectSpeaker}?`);
+        conv.ask(new BasicCard(cardSpeakers[selectSpeaker]));
         conv.ask(new Suggestions(paisSpeakers[0], paisSpeakers[1], paisSpeakers[2], paisSpeakers[3], paisSpeakers[4], paisSpeakers[5]));
         count++;
     } else {
-        conv.close(`${category}! No tenemos el quiz aún`);
+        index = Math.floor(Math.random() * quTech.length);
+        var selectQuestion = quTech[index][0];
+        conv.ask(`${selectQuestion}`);
+        conv.ask(new Suggestions(quTech[index][1], quTech[index][2], quTech[index][3], quTech[index][4]));
+        count++;
     }
 });
 
