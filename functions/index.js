@@ -187,13 +187,14 @@ app.intent('askForSpeakerCountry', (conv, { country }) => {
         conv.ask(`Correcto`);
         score++;
     } else {
-        conv.ask(`incorrecto`);
+        conv.ask(`Incorrecto`);
     }
     if (count < 3) {
         index = 0;
         index = Math.floor(Math.random() * elemSpeakers.length);
         var selectSpeakerCountry = elemSpeakers[index][0];
-        conv.ask(`De que país es  ${selectSpeakerCountry}?`, new BasicCard(cardSpeakers[selectSpeakerCountry]));
+        conv.ask(`De que país es  ${selectSpeakerCountry}?`);
+        conv.ask(new BasicCard(cardSpeakers[selectSpeakerCountry]));
         conv.ask(new Suggestions(paisSpeakers[0], paisSpeakers[1], paisSpeakers[2], paisSpeakers[3], paisSpeakers[4], paisSpeakers[5]));
         count++;
     } else {
@@ -210,5 +211,6 @@ app.intent('askForSpeakerCountry', (conv, { country }) => {
         }
     }
 });
+
 
 exports.dialogflowFirebaseFulfillment = functions.https.onRequest(app);
