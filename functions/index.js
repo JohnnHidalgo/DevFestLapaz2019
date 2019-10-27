@@ -212,5 +212,33 @@ app.intent('askForSpeakerCountry', (conv, { country }) => {
     }
 });
 
+app.intent('askForTechQuiz', (conv, { responce }) => {
+    if (responce == quTech[index][5]) {
+        conv.ask(`Correcto`);
+        score++;
+    } else {
+        conv.ask(`incorrecto`);
+    }
+    if (count < 3) {
+        index = 0;
+        index = Math.floor(Math.random() * quTech.length);
+        var selecttechQuiz = quTech[index][0];
+        conv.ask(`${selecttechQuiz}`);
+        conv.ask(new Suggestions(quTech[index][1], quTech[index][2], quTech[index][3], quTech[index][4]));
+        count++;
+    } else {
+        if (score == 3) {
+            conv.close(`Ganaste !`);
+            index = 0;
+            count = 0;
+            score = 0;
+        } else {
+            conv.close(`Intenta denuevo!`);
+            index = 0;
+            count = 0;
+            score = 0;
+        }
+    }
+});
 
 exports.dialogflowFirebaseFulfillment = functions.https.onRequest(app);
